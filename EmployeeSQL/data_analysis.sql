@@ -99,25 +99,17 @@ where i.dept_no in (
 -- #7
 -- List all employees in the Sales and Development departments, including their
 -- employee number, last name, first name, and department name.
-select i.emp_no as "Employee Number", (
-	select e.last_name
-	from employees as e
-	where e.emp_no = i.emp_no
-) as "Last Name", (
-	select e.first_name
-	from employees as e
-	where e.emp_no = i.emp_no
-) as "First Name", (
-	select d.dept_name
-	from departments as d
-	where d.dept_no = i.dept_no
-) as "Department Name"
+
+-- GOOD ONE vvvvvvvvvv
+select i.emp_no as "Employee Number",
+		e.last_name as "Last Name",
+		e.first_name as "First Name",
+		d.dept_name as "Department Name"
 from dept_emp as i
-where i.dept_no in (
-	select d.dept_no
-	from departments as d
-	where d.dept_name = 'Sales' or d.dept_name = 'Development'
-);
+inner join employees as e on e.emp_no = i.emp_no
+inner join departments as d on d.dept_no = i.dept_no
+where d.dept_name in('Sales', 'Development');
+-- GOOD ONE ^^^^^^^^^^
 
 -- #8
 -- In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
