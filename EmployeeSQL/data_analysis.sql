@@ -15,20 +15,13 @@ from employees
 where hire_date like '1986%';
 
 -- *better*
--- drop view as needed
-drop view employee_info
--- create view with hire date
-create view employee_info as
 select e.emp_no as "Employee Number", e.last_name as "Last Name", e.first_name as "First Name", e.gender as "Gender", (
 	select s.salary
 	from salaries as s
 	where e.emp_no = s.emp_no
 ) as "Salary", e.hire_date as "Hire Date"
-from employees as e;
--- list the data
-select *
-from employee_info
-where "Hire Date" like '1986%';
+from employees as e
+where e.hire_date like '1986%';
 
 --#3
 -- List the manager of each department with the following information:
