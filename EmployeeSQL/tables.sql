@@ -9,45 +9,50 @@ drop table titles;
 -- create tables
 -- departments table
 create table departments(
-	dept_no VARCHAR(4) PRIMARY KEY,
-	dept_name VARCHAR(20)
+	dept_no VARCHAR(4) PRIMARY KEY NOT NULL,
+	dept_name VARCHAR(20) NOT NULL
 );
 -- dept_emp table
 create table dept_emp(
-	emp_no INT,
-	dept_no VARCHAR(4),
-	from_date VARCHAR(10),
-	to_date VARCHAR(10)
+	emp_no INT NOT NULL,
+	dept_no VARCHAR(4) NOT NULL,
+	from_date VARCHAR(10) NOT NULL,
+	to_date VARCHAR(10),
+	PRIMARY KEY (emp_no, dept_no, from_date)
 );
 -- dept_manager table
 create table dept_manager(
-	dept_no VARCHAR(4),
-	emp_no INT,
-	from_date VARCHAR(10),
-	to_date VARCHAR(10)
+	dept_no VARCHAR(4) NOT NULL,
+	emp_no INT NOT NULL,
+	from_date VARCHAR(10) NOT NULL,
+	to_date VARCHAR(10),
+	PRIMARY KEY (dept_no, emp_no, from_date)
 );
 -- employees table
 create table employees(
-	emp_no INT PRIMARY KEY,
+	emp_no INT NOT NULL,
 	birth_date VARCHAR(10),
 	first_name VARCHAR(30),
 	last_name VARCHAR(30),
 	gender VARCHAR(1),
-	hire_date VARCHAR(10)
+	hire_date VARCHAR(10) NOT NULL,
+	PRIMARY KEY (emp_no, hire_date)
 );
 -- salaries table
 create table salaries(
-	emp_no INT PRIMARY KEY,
+	emp_no INT NOT NULL,
 	salary INT,
-	from_date VARCHAR(10),
-	to_date VARCHAR(10)
+	from_date VARCHAR(10) NOT NULL,
+	to_date VARCHAR(10),
+	PRIMARY KEY (emp_no, from_date)
 );
 -- titles table
 create table titles(
-	emp_no INT,
+	emp_no INT NOT NULL,
 	title VARCHAR(30),
-	from_date VARCHAR(10),
-	to_date VARCHAR(10)
+	from_date VARCHAR(10) NOT NULL,
+	to_date VARCHAR(10),
+	PRIMARY KEY (emp_no, from_date)
 );
 
 -- import CSVs
