@@ -1,8 +1,8 @@
 -- statements to drop tables as needed
-drop table departments;
+drop table departments cascade;
+drop table employees cascade;
 drop table dept_emp;
 drop table dept_manager;
-drop table employees;
 drop table salaries;
 drop table titles;
 
@@ -11,22 +11,6 @@ drop table titles;
 create table departments(
 	dept_no VARCHAR(4) PRIMARY KEY NOT NULL,
 	dept_name VARCHAR(20) NOT NULL
-);
--- dept_emp table
-create table dept_emp(
-	emp_no INT NOT NULL,
-	dept_no VARCHAR(4) NOT NULL,
-	from_date VARCHAR(10) NOT NULL,
-	to_date VARCHAR(10),
-	PRIMARY KEY (emp_no, dept_no, from_date)
-);
--- dept_manager table
-create table dept_manager(
-	dept_no VARCHAR(4) NOT NULL,
-	emp_no INT NOT NULL,
-	from_date VARCHAR(10) NOT NULL,
-	to_date VARCHAR(10),
-	PRIMARY KEY (dept_no, emp_no, from_date)
 );
 -- employees table
 create table employees(
@@ -37,6 +21,24 @@ create table employees(
 	gender VARCHAR(1),
 	hire_date VARCHAR(10) NOT NULL,
 	PRIMARY KEY (emp_no, hire_date)
+);
+-- dept_emp table
+create table dept_emp(
+	emp_no INT NOT NULL,
+	dept_no VARCHAR(4) NOT NULL,
+	from_date VARCHAR(10) NOT NULL,
+	to_date VARCHAR(10),
+	PRIMARY KEY (emp_no, dept_no, from_date),
+	FOREIGN KEY (dept_no) REFERENCES departments (dept_no)
+);
+-- dept_manager table
+create table dept_manager(
+	dept_no VARCHAR(4) NOT NULL,
+	emp_no INT NOT NULL,
+	from_date VARCHAR(10) NOT NULL,
+	to_date VARCHAR(10),
+	PRIMARY KEY (dept_no, emp_no, from_date),
+	FOREIGN KEY (dept_no) REFERENCES departments (dept_no)
 );
 -- salaries table
 create table salaries(
